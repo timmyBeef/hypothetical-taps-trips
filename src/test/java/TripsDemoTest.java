@@ -18,7 +18,7 @@ class TripsDemoTest {
     public void test_trips_csv_result_valid() throws FileNotFoundException {
         String sourceFileName = "taps_csv/taps.csv";
         String targetFileName = "trips_csv/trips.csv";
-        demo.showTrips(sourceFileName, targetFileName);
+        demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
 
         List<String> expected = Arrays.asList(
                 "22-01-2018 13:00:00, 22-01-2018 13:05:00, 300, Stop1, Stop2, $3.25, Company1, Bus37, 5500005555555559, Completed"
@@ -28,7 +28,7 @@ class TripsDemoTest {
 
         sourceFileName = "taps_csv/taps_2_unordered_time.csv";
         targetFileName = "trips_csv/trips_2.csv";
-        demo.showTrips(sourceFileName, targetFileName);
+        demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
         expected = Arrays.asList(
                 "22-01-2018 11:00:00, 22-01-2018 12:00:00, 3600, Stop2, Stop3, $5.50, Company1, Bus37, 5500005555555559, Completed",
                 "22-01-2018 13:00:00, 22-01-2018 13:03:00, 180, Stop1, Stop1, $0.00, Company1, Bus37, 5500005555555559, Cancelled",
@@ -38,7 +38,7 @@ class TripsDemoTest {
 
         sourceFileName = "taps_csv/taps_3_all_incomplete.csv";
         targetFileName = "trips_csv/trips_3.csv";
-        demo.showTrips(sourceFileName, targetFileName);
+        demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
         expected = Arrays.asList(
                 "22-01-2018 11:00:00, N/A, N/A, Stop2, N/A, $5.50, Company1, Bus37, 5500005555555559, Incomplete",
                 "22-01-2018 13:00:00, N/A, N/A, Stop1, N/A, $7.30, Company1, Bus37, 5500005555555559, Incomplete",
@@ -48,7 +48,7 @@ class TripsDemoTest {
 
         sourceFileName = "taps_csv/taps_4_all_cases.csv";
         targetFileName = "trips_csv/trips_4.csv";
-        demo.showTrips(sourceFileName, targetFileName);
+        demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
         expected = Arrays.asList(
                 "22-01-2018 11:00:00, 22-01-2018 12:00:00, 3600, Stop2, Stop3, $5.50, Company1, Bus37, 5500005555555559, Completed",
                 "22-01-2018 13:00:00, 22-01-2018 13:03:00, 180, Stop1, Stop1, $0.00, Company1, Bus37, 5500005555555559, Cancelled",
@@ -61,7 +61,7 @@ class TripsDemoTest {
 
         sourceFileName = "taps_csv/taps_5_next_day.csv";
         targetFileName = "trips_csv/trips_5.csv";
-        demo.showTrips(sourceFileName, targetFileName);
+        demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
         expected = Arrays.asList(
                 "22-01-2018 13:00:00, 22-01-2018 13:05:00, 300, Stop1, Stop2, $3.25, Company1, Bus37, 5500005555555559, Completed",
                 "23-01-2018 13:00:00, 23-01-2018 13:05:00, 300, Stop1, Stop2, $3.25, Company1, Bus37, 5500005555555559, Completed"

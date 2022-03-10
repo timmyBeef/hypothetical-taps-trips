@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class TapData {
     private Long id;
     private LocalDateTime dateTimeUTC;
-    private Enum tapType;
+    private TapType tapType;
     private StopId stopId;
     private String companyId;
     private String busID;
@@ -35,11 +35,11 @@ public class TapData {
         this.dateTimeUTC = dateTimeUTC;
     }
 
-    public Enum getTapType() {
+    public TapType getTapType() {
         return tapType;
     }
 
-    public void setTapType(Enum tapType) {
+    public void setTapType(TapType tapType) {
         this.tapType = tapType;
     }
 
