@@ -4,7 +4,6 @@ import csv.CsvUtils;
 import dto.*;
 import mapper.TapDataMapper;
 
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class TripService {
-    private TapDataMapper mapper;
-    private Map<FromTo, BigDecimal> rates;
-    private CsvUtils csvUtils;
+    private final TapDataMapper mapper;
+    private final Map<FromTo, BigDecimal> rates;
+    private final CsvUtils csvUtils;
 
     public TripService() {
         this.mapper = new TapDataMapper();
@@ -33,17 +32,15 @@ public class TripService {
 
     // get taps data list from map
     // then classify taps data to completed, incomplete, cancel trips
-    public List<TripData> generateTrips(Map<String, List<TapData>> map, String fileName) throws FileNotFoundException {
+    public void generateTrips(Map<String, List<TapData>> map, String fileName) {
         List<TripData> trips = new ArrayList<>();
         for (String tapsKey : map.keySet()) {
             setOneCustomerTrips(map, trips, tapsKey);
         }
-        this.csvUtils.write(trips, fileName);
 
         // for final trips result, sort by start time
         trips.sort(Comparator.comparing(TripData::getStarted));
-
-        return trips;
+        this.csvUtils.write(trips, fileName);
     }
 
     private void setOneCustomerTrips(Map<String, List<TapData>> map, List<TripData> trips, String tapsKey) {
@@ -54,7 +51,6 @@ public class TripService {
         while (i < taps.size()) {
             TapData current = taps.get(i);
             TapData next = i + 1 < taps.size() ? taps.get(i + 1) : null; // for incomplete trip, next will be null
-            BigDecimal amount;
 
             // complete or cancel taps, will be pair data
             boolean isPairedTaps = next != null && current.getTapType() == TapType.ON && next.getTapType() == TapType.OFF;

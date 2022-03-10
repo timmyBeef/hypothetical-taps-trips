@@ -8,7 +8,7 @@ public enum StopId {
 
     public final String value;
 
-    private StopId(String value) {
+    StopId(String value) {
         this.value = value;
     }
 

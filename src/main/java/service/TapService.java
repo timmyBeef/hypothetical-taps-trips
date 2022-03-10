@@ -6,7 +6,7 @@ import dto.TapData;
 import java.util.List;
 
 public class TapService {
-    private CsvUtils csvUtils;
+    private final CsvUtils csvUtils;
 
     public TapService() {
         this.csvUtils = new CsvUtils();

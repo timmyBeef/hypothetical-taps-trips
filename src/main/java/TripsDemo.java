@@ -1,20 +1,23 @@
-import dto.*;
+import dto.TapData;
 import service.TapService;
 import service.TripService;
 
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TripsDemo {
 
-    private TapService tapService;
-    private TripService tripService;
+    private final TapService tapService;
+    private final TripService tripService;
 
     TripsDemo() {
+        this.tapService = new TapService();
         this.tripService = new TripService();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         new TripsDemo().readTabsThenGenerateTips("taps_csv/taps.csv", "trips_csv/trips.csv");
         new TripsDemo().readTabsThenGenerateTips("taps_csv/taps_2_unordered_time.csv", "trips_csv/trips_2.csv");
         new TripsDemo().readTabsThenGenerateTips("taps_csv/taps_3_all_incomplete.csv", "trips_csv/trips_3.csv");
@@ -30,7 +33,7 @@ public class TripsDemo {
 
         Map<22-01-2018_Company1_Bus37_5500005555555559, List<these 4 taps data>>
      */
-    public void readTabsThenGenerateTips(String tapsFileName, String tripsFileName) throws FileNotFoundException {
+    public void readTabsThenGenerateTips(String tapsFileName, String tripsFileName) {
 
         List<TapData> taps = tapService.readTaps(tapsFileName);
 

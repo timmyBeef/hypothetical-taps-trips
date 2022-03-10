@@ -17,7 +17,7 @@ public class CsvUtils {
     private static final String TRIP_HEADER =
             "Started, Finished, DurationSecs, FromStopId, ToStopId, ChargeAmount, CompanyId, BusID, PAN, Status";
     private String[] headers;
-    private TapDataMapper mapper = new TapDataMapper();
+    private final TapDataMapper mapper = new TapDataMapper();
 
 
     public List<TapData> read(String fileName) {
@@ -45,7 +45,7 @@ public class CsvUtils {
         return result;
     }
 
-    public void write(List<TripData> trips, String fileName) throws FileNotFoundException {
+    public void write(List<TripData> trips, String fileName) {
         File csvOutputFile = new File(fileName);
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             pw.println(TRIP_HEADER);
@@ -67,17 +67,15 @@ public class CsvUtils {
     }
 
     private String getTripString(TripData data) {
-        StringBuilder sb = new StringBuilder();
-        return sb.append(data.getStarted()).append(", ")
-                .append(data.getFinished()).append(", ")
-                .append(data.getDurationSecs()).append(", ")
-                .append(data.getFromStopId()).append(", ")
-                .append(data.getToStopId()).append(", ")
-                .append(data.getChargeAmount()).append(", ")
-                .append(data.getCompanyId()).append(", ")
-                .append(data.getBusID()).append(", ")
-                .append(data.getPan()).append(", ")
-                .append(data.getStatus())
-                .toString();
+        return data.getStarted() + ", " +
+                data.getFinished() + ", " +
+                data.getDurationSecs() + ", " +
+                data.getFromStopId() + ", " +
+                data.getToStopId() + ", " +
+                data.getChargeAmount() + ", " +
+                data.getCompanyId() + ", " +
+                data.getBusID() + ", " +
+                data.getPan() + ", " +
+                data.getStatus();
     }
 }

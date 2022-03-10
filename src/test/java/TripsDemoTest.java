@@ -12,15 +12,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TripsDemoTest {
-    private TripsDemo demo = new TripsDemo();
+    private final TripsDemo demo = new TripsDemo();
 
     @Test
-    public void test_trips_csv_result_valid() throws FileNotFoundException {
+    public void test_trips_csv_result_valid() {
         String sourceFileName = "taps_csv/taps.csv";
         String targetFileName = "trips_csv/trips.csv";
         demo.readTabsThenGenerateTips(sourceFileName, targetFileName);
 
-        List<String> expected = Arrays.asList(
+        List<String> expected = List.of(
                 "22-01-2018 13:00:00, 22-01-2018 13:05:00, 300, Stop1, Stop2, $3.25, Company1, Bus37, 5500005555555559, Completed"
         );
         assertEquals(readTripsCSV(targetFileName), expected);

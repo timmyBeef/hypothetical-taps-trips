@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 // in real project, a Mapper can be done by Mapstruct
 public class TapDataMapper {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     public TapData fromRawData(TapRawData rawData) {
         TapData data = new TapData();
