@@ -4,6 +4,7 @@ import dto.TapData;
 import dto.TapRawData;
 import dto.TripData;
 import exception.CsvReadException;
+import exception.CsvWriteException;
 import mapper.TapDataMapper;
 
 import java.io.*;
@@ -51,6 +52,9 @@ public class CsvUtils {
             trips.stream()
                     .map(this::getTripString)
                     .forEach(pw::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CsvWriteException(e.getMessage());
         }
     }
 

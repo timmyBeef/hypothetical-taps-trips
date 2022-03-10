@@ -13,6 +13,7 @@ public class TapData {
     private String pan;
 
     public String getTapsKey() {
+        // only use the date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         return this.dateTimeUTC.format(formatter) + "_" + this.companyId + "_" + this.busID + "_" + this.pan;

@@ -36,9 +36,9 @@ ex: in different stop(completed case), OFF is before ON ⇒ not make sense
 based on reqirement, we can group taps data by
 
 ```
-dateTimeUTC + "_" + companyId + "_" + busID + "_" + pan
+dateTimeUTC's date + "_" + companyId + "_" + busID + "_" + pan
 ```
-By grouping this key, we can get a passenger's taps within one day.
+By grouping this key, we can get a passenger's taps within "one day".
 
 # Test Cases Explaination
 you can find input and ouptput csv folders here (taps_csv, trips_csv folders):
@@ -48,7 +48,7 @@ you can find input and ouptput csv folders here (taps_csv, trips_csv folders):
 ## test case: different days
 If taps.csv has many days' data, here we process taps within one day, and generate trips for this day, others will be other trips, and that's why I group by:
 ```
-dateTimeUTC + "_" + companyId + "_" + busID + "_" + pan
+dateTimeUTC's date + "_" + companyId + "_" + busID + "_" + pan
 ```
 #### ex: taps_5_next_day.csv has two days' data
 ```
@@ -87,6 +87,27 @@ Started, Finished, DurationSecs, FromStopId, ToStopId, ChargeAmount, CompanyId, 
 22-01-2018 13:05:00, 22-01-2018 13:06:00, 60, Stop3, Stop1, $7.30, Company1, Bus39, 122000000000003, Completed
 ```
 
+## test case: incomplete taps
+
+#### taps_3_all_incomplete.csv
+
+these data are all only tab on data, not pair taps
+```
+ID, DateTimeUTC, TapType, StopId, CompanyId, BusID, PAN
+1, 22-01-2018 13:00:00, ON, Stop1, Company1, Bus37, 5500005555555559
+2, 22-01-2018 13:05:00, ON, Stop3, Company1, Bus39, 122000000000003
+3, 22-01-2018 11:00:00, ON, Stop2, Company1, Bus37, 5500005555555559
+```
+
+#### output
+If trip is a incomplete trips: the column of Finished, DurationSecs, ToStopId is "N/A"
+```
+Started, Finished, DurationSecs, FromStopId, ToStopId, ChargeAmount, CompanyId, BusID, PAN, Status
+22-01-2018 11:00:00, N/A, N/A, Stop2, N/A, $5.50, Company1, Bus37, 5500005555555559, Incomplete
+22-01-2018 13:00:00, N/A, N/A, Stop1, N/A, $7.30, Company1, Bus37, 5500005555555559, Incomplete
+22-01-2018 13:05:00, N/A, N/A, Stop3, N/A, $7.30, Company1, Bus39, 122000000000003, Incomplete
+```
+
 ## test case: all cases - completed, incomplete, canceled
 
 #### taps_4_all_cases.csv
@@ -104,7 +125,6 @@ ID, DateTimeUTC, TapType, StopId, CompanyId, BusID, PAN
 ```
 
 #### output
-If trip is a incomplete trips: the column of Finished, DurationSecs, ToStopId is "N/A"
 ```
 Started, Finished, DurationSecs, FromStopId, ToStopId, ChargeAmount, CompanyId, BusID, PAN, Status
 22-01-2018 11:00:00, 22-01-2018 12:00:00, 3600, Stop2, Stop3, $5.50, Company1, Bus37, 5500005555555559, Completed
@@ -156,7 +176,7 @@ new FromTo(StopId.STOP3, StopId.ANY), new BigDecimal(7.30)
 1. Read taps data from taps CSV file
 2. Group taps data into HashMap<String key, List of taps>, string key is
 ```
-dateTimeUTC + "_" + companyId + "_" + busID + "_" + pan
+dateTimeUTC's date + "_" + companyId + "_" + busID + "_" + pan
 ```
 3. findTrips()
    Iterate HashMap, then get each string key, get the taps list, classify taps data to completed, incomplete, cancel trips, add to results
