@@ -7,7 +7,7 @@
 # How to run it
 This is a gradle project, so simply import this project into IntelliJ IDEA.
 
-I write a JUnit TripsDemoTest.java, so you can test here. Thanks.
+I write a JUnit TripsDemoTest.java, so you can test here, or you can run TripsDemo.java main() method. Thanks.
 ![](https://i.imgur.com/BeVzEMh.png)
 
 
